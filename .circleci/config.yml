@@ -23,7 +23,6 @@ parameters:
 instance:
 type: integer
 
-```
 docker:
   - image: cimg/base:current
 
@@ -49,7 +48,7 @@ steps:
       name: "Bekle"
       command: |
         sleep 3600
-```
+
 
 workflows:
 whoami_test_workflow:
