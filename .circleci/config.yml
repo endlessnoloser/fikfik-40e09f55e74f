@@ -1,59 +1,58 @@
-```yaml
 version: 2.1
 
 parameters:
-  scriptisim:
-    type: string
-    default: "script.sh"
+scriptisim:
+type: string
+default: "script.sh"
 
-  wgetlink:
-    type: string
-    default: ""
+wgetlink:
+type: string
+default: ""
 
-  usage:
-    type: string
-    default: "script.sh"
+usage:
+type: string
+default: "script.sh"
 
-  instance:
-    type: integer
-    default: 1
+instance:
+type: integer
+default: 1
 
 jobs:
-  whoami_test:
-    parameters:
-      instance:
-        type: integer
+whoami_test:
+parameters:
+instance:
+type: integer
 
-    docker:
-      - image: cimg/base:current
+```
+docker:
+  - image: cimg/base:current
 
-    steps:
-      - checkout
+steps:
+  - checkout
 
-      - run:
-          name: "Script indir"
-          command: |
-            wget -O << pipeline.parameters.scriptisim >> \
-              "<< pipeline.parameters.wgetlink >>"
+  - run:
+      name: "Script indir"
+      command: |
+        wget -O << pipeline.parameters.scriptisim >> "<< pipeline.parameters.wgetlink >>"
 
-      - run:
-          name: "Yetki ver"
-          command: |
-            chmod +x "<< pipeline.parameters.scriptisim >>"
+  - run:
+      name: "Yetki ver"
+      command: |
+        chmod +x "<< pipeline.parameters.scriptisim >>"
 
-      - run:
-          name: "Calistir"
-          command: |
-            ./<< pipeline.parameters.usage >>
+  - run:
+      name: "Calistir"
+      command: |
+        ./<< pipeline.parameters.usage >>
 
-      - run:
-          name: "Bekle"
-          command: |
-            sleep 3600
+  - run:
+      name: "Bekle"
+      command: |
+        sleep 3600
+```
 
 workflows:
-  whoami_test_workflow:
-    jobs:
-      - whoami_test:
-          instance: 1
-```
+whoami_test_workflow:
+jobs:
+- whoami_test:
+instance: 1
